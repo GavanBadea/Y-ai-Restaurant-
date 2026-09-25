@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="customerMenuRoot">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1b2a">
+  <title>مطعم Y — قائمة المأكولات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>/* قائمة المأكولات للزبون — موبايل */
+.customer-menu-body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Tajawal, Tahoma, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #1a1a1a;
+  background: linear-gradient(180deg, #eef4fb 0%, #f8fafc 40%, #fff 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+.customer-menu-header {
+  padding: 14px 12px 12px;
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b3a5c 100%);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(13, 27, 42, 0.25);
+}
+
+.customer-menu-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.customer-menu-back-btn,
+.customer-menu-lang-btn {
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.customer-menu-back-btn {
+  display: inline-flex;
+  align-items: center;
+}
+
+.customer-menu-back-btn:hover,
+.customer-menu-lang-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.customer-menu-header-actions .customer-menu-lang-btn {
+  margin-inline-start: auto;
+}
+
+.customer-menu-subtitle {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.88;
+}
+
+.customer-menu-body--en .customer-menu-meta {
+  align-items: flex-start;
+  text-align: start;
+}
+
+.customer-menu-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.customer-menu-brand {
+  flex-shrink: 0;
+}
+
+.customer-menu-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: start;
+}
+
+.customer-menu-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+  padding: 4px;
+  display: block;
+}
+
+.customer-menu-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.customer-menu-stars {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3px;
+  margin-top: 2px;
+}
+
+.customer-menu-star {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.28);
+  line-height: 1;
+}
+
+.customer-menu-star.is-filled {
+  color: #f5c542;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.customer-menu-phone {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  opacity: 0.92;
+  direction: ltr;
+  text-align: start;
+}
+
+.customer-menu-address {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  opacity: 0.88;
+  line-height: 1.45;
+}
+
+.customer-menu-cat-nav {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.customer-menu-cat-nav-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 40px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  padding: 2px 2px 8px;
+}
+
+.customer-menu-cat-nav-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.customer-menu-cat-nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+
+.customer-menu-cat-nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.customer-menu-cat-btn {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  min-height: 36px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.customer-menu-cat-btn:active,
+.customer-menu-cat-btn:hover {
+  background: rgba(255, 255, 255, 0.34);
+  border-color: rgba(255, 255, 255, 0.75);
+  transform: translateY(-1px);
+}
+
+.customer-menu-main {
+  padding: 12px 12px 32px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.customer-menu-section {
+  margin-bottom: 16px;
+  scroll-margin-top: 14px;
+  padding: 14px 12px 16px;
+  border-radius: 16px;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1b3a5c 100%);
+  box-shadow: 0 4px 18px rgba(13, 27, 42, 0.22);
+}
+
+.customer-menu-cat {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: none;
+}
+
+.customer-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.customer-menu-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e8edf3;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.customer-menu-item--unavail {
+  opacity: 0.72;
+  background: #f5f6f8;
+}
+
+.customer-menu-thumb {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eef2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-menu-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.customer-menu-thumb-ph {
+  font-size: 1.8rem;
+}
+
+.customer-menu-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.customer-menu-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #111;
+}
+
+.customer-menu-ingredients {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.customer-menu-price {
+  font-weight: 600;
+  color: #1b4332;
+  font-variant-numeric: tabular-nums;
+}
+
+.customer-menu-price .money-value {
+  display: inline-flex;
+  align-items: baseline;
+  direction: ltr;
+  unicode-bidi: isolate;
+  gap: 0.3em;
+  white-space: nowrap;
+}
+.customer-menu-price .money-curr {
+  font-size: 0.72em;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.customer-menu-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.customer-menu-badge--yes {
+  background: #d8f3dc;
+  color: #1b4332;
+}
+
+.customer-menu-badge--no {
+  background: #fde8e8;
+  color: #9d0208;
+}
+
+.customer-menu-empty {
+  text-align: center;
+  color: #666;
+  padding: 40px 16px;
+}
+
+.customer-menu-footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.82rem;
+  color: #888;
+}
+.customer-menu-yai-info-link {
+  color: #1b3a5c;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.customer-menu-yai-info-link:hover {
+  color: #0d1b2a;
+}
+
+.y-ai-info-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+}
+.y-ai-info-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(13, 27, 42, 0.08);
+  border: 1px solid rgba(13, 27, 42, 0.06);
+}
+.y-ai-info-name {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0d1b2a;
+}
+.y-ai-info-line {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+}
+.y-ai-info-line:last-child {
+  margin-bottom: 0;
+}
+.y-ai-info-section-title {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  line-height: 1.45;
+}
+.y-ai-info-programs {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #333;
+}
+.y-ai-info-programs li + li {
+  margin-top: 10px;
+}
+.y-ai-info-cta {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: #1b3a5c;
+  padding: 0 8px;
+}
+.y-ai-info-header .customer-menu-back-btn {
+  display: inline-flex !important;
+}
+.y-ai-info-programs--with-images li {
+  list-style: decimal;
+}
+.y-ai-info-program-text {
+  margin: 0 0 10px;
+}
+.y-ai-info-promo {
+  margin: 0 0 4px;
+  padding: 0;
+}
+.y-ai-info-promo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(13, 27, 42, 0.08);
+  box-shadow: 0 4px 16px rgba(13, 27, 42, 0.12);
+}
+
+@media (min-width: 600px) {
+  .customer-menu-header-top { align-items: center; }
+  .customer-menu-header h1 { font-size: 1.45rem; }
+  .customer-menu-logo { width: 56px; height: 56px; }
+  .customer-menu-main { padding: 20px 20px 40px; }
+}
+</style>
+</head>
+<body class="customer-menu-body">
+  <header class="customer-menu-header">
+    <div class="customer-menu-header-actions">
+      <button type="button" class="customer-menu-lang-btn" id="customerMenuLangBtn" aria-label="Switch language">English</button>
+    </div>
+    <div class="customer-menu-header-top">
+      <div class="customer-menu-meta">
+        <p class="customer-menu-subtitle" data-i18n="menuSubtitle">قائمة المأكولات</p>
+        <h1 data-text-ar="مطعم Y" data-text-en="مطعم Y">مطعم Y</h1>
+        
+        
+        
+      </div>
+    </div>
+    <nav class="customer-menu-cat-nav" aria-label="أقسام المنيو" data-i18n-aria="sectionsNav">
+      <div class="customer-menu-cat-nav-scroll">
+        <a href="#cat-1" class="customer-menu-cat-btn" data-text-ar="مشروبات" data-text-en="drinks">مشروبات</a>
+<a href="#cat-2" class="customer-menu-cat-btn" data-text-ar="أطباق رئيسية" data-text-en="Main dishes">أطباق رئيسية</a>
+<a href="#cat-3" class="customer-menu-cat-btn" data-text-ar="حلويات" data-text-en="candies">حلويات</a>
+
+      </div>
+    </nav>
+  </header>
+  <main class="customer-menu-main">
+    
+        <section class="customer-menu-section" id="cat-1">
+          <h2 class="customer-menu-cat" data-text-ar="مشروبات" data-text-en="drinks">مشروبات</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="عصير برتقال" data-text-en="orange juice">عصير برتقال</span>
+                
+                <span class="customer-menu-price">15 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="قهوة" data-text-en="coffee">قهوة</span>
+                
+                <span class="customer-menu-price">12 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="ماء" data-text-en="water">ماء</span>
+                
+                <span class="customer-menu-price">5 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-2">
+          <h2 class="customer-menu-cat" data-text-ar="أطباق رئيسية" data-text-en="Main dishes">أطباق رئيسية</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="برجر" data-text-en="Burger">برجر</span>
+                
+                <span class="customer-menu-price">55 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="بيتزا" data-text-en="Pizza">بيتزا</span>
+                
+                <span class="customer-menu-price">70 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="شاورما" data-text-en="Shawarma">شاورما</span>
+                
+                <span class="customer-menu-price">45 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-3">
+          <h2 class="customer-menu-cat" data-text-ar="حلويات" data-text-en="candies">حلويات</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="آيس كريم" data-text-en="Ice cream">آيس كريم</span>
+                
+                <span class="customer-menu-price">18 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="كنافة" data-text-en="Kunafa">كنافة</span>
+                
+                <span class="customer-menu-price">25 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+              </div>
+            </li></ul>
+        </section>
+  </main>
+  <footer class="customer-menu-footer">
+    <a href="./y-ai-info.html" class="customer-menu-yai-info-link" data-i18n="footer">Y-ai info</a>
+  </footer>
+  <script>
+(function () {
+  var restaurantNameAr = "\u0645\u0637\u0639\u0645 Y";
+  var restaurantNameEn = "\u0645\u0637\u0639\u0645 Y";
+  var starRating = 0;
+  var I18N = {
+    ar: {
+      menuSubtitle: 'قائمة المأكولات',
+      available: 'متاح',
+      unavailable: 'غير متاح',
+      empty: 'لا توجد أصناف في القائمة حالياً.',
+      footer: 'Y-ai info',
+      langBtn: 'English',
+      sectionsNav: 'أقسام المنيو',
+      starsLabel: starRating + ' من 5',
+      pageTitleSuffix: ' — قائمة المأكولات'
+    },
+    en: {
+      menuSubtitle: 'Food Menu',
+      available: 'Available',
+      unavailable: 'Unavailable',
+      empty: 'No menu items available right now.',
+      footer: 'Y-ai info',
+      langBtn: 'العربية',
+      sectionsNav: 'Menu sections',
+      starsLabel: starRating + ' out of 5',
+      pageTitleSuffix: ' — Food Menu'
+    }
+  };
+
+  function applyLang(lang) {
+    var root = document.documentElement;
+    root.lang = lang;
+    root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.body.classList.toggle('customer-menu-body--en', lang === 'en');
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (I18N[lang][key]) el.textContent = I18N[lang][key];
+    });
+    document.querySelectorAll('[data-text-ar]').forEach(function (el) {
+      var ar = el.getAttribute('data-text-ar') || '';
+      var en = el.getAttribute('data-text-en') || ar;
+      el.textContent = lang === 'en' ? en : ar;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-aria');
+      if (I18N[lang][key]) el.setAttribute('aria-label', I18N[lang][key]);
+    });
+    document.querySelectorAll('img[data-alt-ar]').forEach(function (img) {
+      var ar = img.getAttribute('data-alt-ar') || '';
+      var en = img.getAttribute('data-alt-en') || ar;
+      img.alt = lang === 'en' ? en : ar;
+    });
+
+    var langBtn = document.getElementById('customerMenuLangBtn');
+    if (langBtn) langBtn.textContent = I18N[lang].langBtn;
+
+    var titleName = lang === 'en' ? restaurantNameEn : restaurantNameAr;
+    document.title = titleName + I18N[lang].pageTitleSuffix;
+    try { localStorage.setItem('customerMenuLang', lang); } catch (e) {}
+  }
+
+  var langBtn = document.getElementById('customerMenuLangBtn');
+  if (langBtn) {
+    langBtn.addEventListener('click', function () {
+      applyLang(document.documentElement.lang === 'ar' ? 'en' : 'ar');
+    });
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('customerMenuLang'); } catch (e) {}
+  applyLang(saved === 'en' ? 'en' : 'ar');
+
+  document.querySelectorAll('.customer-menu-cat-btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      var href = btn.getAttribute('href');
+      if (!href || href.charAt(0) !== '#') return;
+      var target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
