@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d1b2a">
-  <title>مطعم Y — قائمة المأكولات</title>
+  <title>مطعم الريف — قائمة المأكولات</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
   <style>/* قائمة المأكولات للزبون — موبايل */
@@ -455,6 +455,78 @@
   .customer-menu-logo { width: 56px; height: 56px; }
   .customer-menu-main { padding: 20px 20px 40px; }
 }
+
+.customer-menu-add {
+  margin-top: 6px;
+  font-family: inherit;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 12px;
+  background: #16a34a;
+  color: #fff;
+  cursor: pointer;
+}
+.pwa-install-banner {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 72px;
+  z-index: 40;
+  background: #0d1b2a;
+  color: #fff;
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+.pwa-install-actions { display: flex; gap: 8px; margin-top: 8px; }
+.menu-app-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(13,27,42,.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.menu-app-gate[hidden] { display: none; }
+.menu-app-gate-box {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.menu-app-gate-box input {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+.menu-app-loc { color: #475569; font-size: 0.9rem; }
+.menu-app-cart {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  padding: 10px 12px 16px;
+}
+.menu-app-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+.menu-app-cart-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
 </style>
 </head>
 <body class="customer-menu-body">
@@ -465,104 +537,222 @@
     <div class="customer-menu-header-top">
       <div class="customer-menu-meta">
         <p class="customer-menu-subtitle" data-i18n="menuSubtitle">قائمة المأكولات</p>
-        <h1 data-text-ar="مطعم Y" data-text-en="مطعم Y">مطعم Y</h1>
-        
-        
-        
+        <h1 data-text-ar="مطعم الريف" data-text-en="مطعم الريف">مطعم الريف</h1>
+        <div class="customer-menu-stars" data-i18n-aria="starsLabel" aria-label="4 من 5"><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star ">★</span></div>
+        <p class="customer-menu-phone" data-text-ar="07504505340 -07725694017" data-text-en="07504505340 -07725694017">07504505340 -07725694017</p>
+        <p class="customer-menu-address" data-text-ar="زاخو  المجمع التجاري" data-text-en="زاخو  المجمع التجاري">زاخو  المجمع التجاري</p>
       </div>
     </div>
     <nav class="customer-menu-cat-nav" aria-label="أقسام المنيو" data-i18n-aria="sectionsNav">
       <div class="customer-menu-cat-nav-scroll">
-        <a href="#cat-1" class="customer-menu-cat-btn" data-text-ar="مشروبات" data-text-en="drinks">مشروبات</a>
-<a href="#cat-2" class="customer-menu-cat-btn" data-text-ar="أطباق رئيسية" data-text-en="Main dishes">أطباق رئيسية</a>
-<a href="#cat-3" class="customer-menu-cat-btn" data-text-ar="حلويات" data-text-en="candies">حلويات</a>
+        <a href="#cat-4" class="customer-menu-cat-btn" data-text-ar="فطور" data-text-en="breakfast">فطور</a>
+<a href="#cat-5" class="customer-menu-cat-btn" data-text-ar="غذاء" data-text-en="food">غذاء</a>
+<a href="#cat-6" class="customer-menu-cat-btn" data-text-ar="عشاء" data-text-en="dinner">عشاء</a>
+<a href="#cat-7" class="customer-menu-cat-btn" data-text-ar="وجبات سريعة" data-text-en="Fast food">وجبات سريعة</a>
+<a href="#cat-8" class="customer-menu-cat-btn" data-text-ar="مشروبات ساخنة" data-text-en="Hot drinks">مشروبات ساخنة</a>
+<a href="#cat-9" class="customer-menu-cat-btn" data-text-ar="مشروبات باردة" data-text-en="Cold drinks">مشروبات باردة</a>
+<a href="#cat-10" class="customer-menu-cat-btn" data-text-ar="حلويات" data-text-en="candies">حلويات</a>
+<a href="#cat-11" class="customer-menu-cat-btn" data-text-ar="مقبلات" data-text-en="appetizers">مقبلات</a>
+<a href="#cat-12" class="customer-menu-cat-btn" data-text-ar="نركيلة" data-text-en="Hookah">نركيلة</a>
 
       </div>
     </nav>
   </header>
   <main class="customer-menu-main">
     
-        <section class="customer-menu-section" id="cat-1">
-          <h2 class="customer-menu-cat" data-text-ar="مشروبات" data-text-en="drinks">مشروبات</h2>
+        <section class="customer-menu-section" id="cat-4">
+          <h2 class="customer-menu-cat" data-text-ar="فطور" data-text-en="breakfast">فطور</h2>
           <ul class="customer-menu-list">
             <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><img src="./images/product_2.jpg" alt="عصير برتقال10" loading="lazy" data-alt-ar="عصير برتقال10" data-alt-en="Orange juice10"></div>
+              <div class="customer-menu-thumb"><img src="./images/product_9.png" alt="بيض" loading="lazy" data-alt-ar="بيض" data-alt-en="egg"></div>
               <div class="customer-menu-info">
-                <span class="customer-menu-name" data-text-ar="عصير برتقال10" data-text-en="Orange juice10">عصير برتقال10</span>
-                
-                <span class="customer-menu-price">15 د.ع</span>
+                <span class="customer-menu-name" data-text-ar="بيض" data-text-en="egg">بيض</span>
+                <span class="customer-menu-ingredients" data-text-ar="2 بيض مقلي بالزيت مع خبز" data-text-en="2 eggs fried in oil with bread">2 بيض مقلي بالزيت مع خبز</span>
+                <span class="customer-menu-price">2000 د.ع</span>
                 <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="9" data-name="بيض" data-price="2000.0">+</button>
               </div>
             </li>
             <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><img src="./images/product_3.jpg" alt="قهوة vaman" loading="lazy" data-alt-ar="قهوة vaman" data-alt-en="vaman coffee"></div>
+              <div class="customer-menu-thumb"><img src="./images/product_10.png" alt="وجبة كاملة" loading="lazy" data-alt-ar="وجبة كاملة" data-alt-en="A complete meal"></div>
               <div class="customer-menu-info">
-                <span class="customer-menu-name" data-text-ar="قهوة vaman" data-text-en="vaman coffee">قهوة vaman</span>
-                
-                <span class="customer-menu-price">12 د.ع</span>
+                <span class="customer-menu-name" data-text-ar="وجبة كاملة" data-text-en="A complete meal">وجبة كاملة</span>
+                <span class="customer-menu-ingredients" data-text-ar="خبز-بيض-راشي-لبن-قلية-زيتون-طمامة مقلية" data-text-en="Bread - eggs - rashi - yogurt - frying pan - olives - fried tomato">خبز-بيض-راشي-لبن-قلية-زيتون-طمامة مقلية</span>
+                <span class="customer-menu-price">8000 د.ع</span>
                 <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
-              </div>
-            </li>
-            <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><img src="./images/product_1.jpg" alt="ماء" loading="lazy" data-alt-ar="ماء" data-alt-en="water"></div>
-              <div class="customer-menu-info">
-                <span class="customer-menu-name" data-text-ar="ماء" data-text-en="water">ماء</span>
-                
-                <span class="customer-menu-price">5 د.ع</span>
-                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="10" data-name="وجبة كاملة" data-price="8000.0">+</button>
               </div>
             </li></ul>
         </section>
-        <section class="customer-menu-section" id="cat-2">
-          <h2 class="customer-menu-cat" data-text-ar="أطباق رئيسية" data-text-en="Main dishes">أطباق رئيسية</h2>
+        <section class="customer-menu-section" id="cat-5">
+          <h2 class="customer-menu-cat" data-text-ar="غذاء" data-text-en="food">غذاء</h2>
           <ul class="customer-menu-list">
             <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-thumb"><img src="./images/product_11.png" alt="مشويات" loading="lazy" data-alt-ar="مشويات" data-alt-en="Grilled"></div>
               <div class="customer-menu-info">
-                <span class="customer-menu-name" data-text-ar="برجر" data-text-en="Burger">برجر</span>
-                
-                <span class="customer-menu-price">55 د.ع</span>
+                <span class="customer-menu-name" data-text-ar="مشويات" data-text-en="Grilled">مشويات</span>
+                <span class="customer-menu-ingredients" data-text-ar="كباب - تكة - معلاق" data-text-en="Kebab - tikka - malaq">كباب - تكة - معلاق</span>
+                <span class="customer-menu-price">12000 د.ع</span>
                 <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="11" data-name="مشويات" data-price="12000.0">+</button>
               </div>
             </li>
             <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-thumb"><img src="./images/product_12.png" alt="ورق عنب" loading="lazy" data-alt-ar="ورق عنب" data-alt-en="grape leaves"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="ورق عنب" data-text-en="grape leaves">ورق عنب</span>
+                <span class="customer-menu-ingredients" data-text-ar="زر ملفوف بورق عنب" data-text-en="Button wrapped in grape leaves">زر ملفوف بورق عنب</span>
+                <span class="customer-menu-price">6000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="12" data-name="ورق عنب" data-price="6000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-6">
+          <h2 class="customer-menu-cat" data-text-ar="عشاء" data-text-en="dinner">عشاء</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_13.png" alt="كبة عراقية" loading="lazy" data-alt-ar="كبة عراقية" data-alt-en="Iraqi kibbeh"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="كبة عراقية" data-text-en="Iraqi kibbeh">كبة عراقية</span>
+                <span class="customer-menu-ingredients" data-text-ar="لحم - البرغل" data-text-en="Meat - bulgur">لحم - البرغل</span>
+                <span class="customer-menu-price">6000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="13" data-name="كبة عراقية" data-price="6000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-7">
+          <h2 class="customer-menu-cat" data-text-ar="وجبات سريعة" data-text-en="Fast food">وجبات سريعة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_14.png" alt="بطاطس مقلية" loading="lazy" data-alt-ar="بطاطس مقلية" data-alt-en="French fries"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="بطاطس مقلية" data-text-en="French fries">بطاطس مقلية</span>
+                <span class="customer-menu-ingredients" data-text-ar="بطاطة اصبعية مقلية بالزيت" data-text-en="Fingerling potatoes fried in oil">بطاطة اصبعية مقلية بالزيت</span>
+                <span class="customer-menu-price">3000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="14" data-name="بطاطس مقلية" data-price="3000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_15.png" alt="بيتزا" loading="lazy" data-alt-ar="بيتزا" data-alt-en="Pizza"></div>
               <div class="customer-menu-info">
                 <span class="customer-menu-name" data-text-ar="بيتزا" data-text-en="Pizza">بيتزا</span>
-                
-                <span class="customer-menu-price">70 د.ع</span>
+                <span class="customer-menu-ingredients" data-text-ar="لحم - دجاج - جبن -زيتون -سجق" data-text-en="Meat - chicken - cheese - olives - sausage">لحم - دجاج - جبن -زيتون -سجق</span>
+                <span class="customer-menu-price">10000 د.ع</span>
                 <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
-              </div>
-            </li>
-            <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
-              <div class="customer-menu-info">
-                <span class="customer-menu-name" data-text-ar="شاورما" data-text-en="Shawarma">شاورما</span>
-                
-                <span class="customer-menu-price">45 د.ع</span>
-                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="15" data-name="بيتزا" data-price="10000.0">+</button>
               </div>
             </li></ul>
         </section>
-        <section class="customer-menu-section" id="cat-3">
+        <section class="customer-menu-section" id="cat-8">
+          <h2 class="customer-menu-cat" data-text-ar="مشروبات ساخنة" data-text-en="Hot drinks">مشروبات ساخنة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_16.png" alt="شاي" loading="lazy" data-alt-ar="شاي" data-alt-en="tea"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="شاي" data-text-en="tea">شاي</span>
+                
+                <span class="customer-menu-price">250 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="16" data-name="شاي" data-price="250.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_17.png" alt="قهوة" loading="lazy" data-alt-ar="قهوة" data-alt-en="coffee"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="قهوة" data-text-en="coffee">قهوة</span>
+                
+                <span class="customer-menu-price">1000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="17" data-name="قهوة" data-price="1000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-9">
+          <h2 class="customer-menu-cat" data-text-ar="مشروبات باردة" data-text-en="Cold drinks">مشروبات باردة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_18.png" alt="بيبسي" loading="lazy" data-alt-ar="بيبسي" data-alt-en="Pepsi"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="بيبسي" data-text-en="Pepsi">بيبسي</span>
+                
+                <span class="customer-menu-price">500 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="18" data-name="بيبسي" data-price="500.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_19.png" alt="عصير برتقال" loading="lazy" data-alt-ar="عصير برتقال" data-alt-en="orange juice"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="عصير برتقال" data-text-en="orange juice">عصير برتقال</span>
+                
+                <span class="customer-menu-price">3000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="19" data-name="عصير برتقال" data-price="3000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_20.png" alt="عصير مانجو" loading="lazy" data-alt-ar="عصير مانجو" data-alt-en="Mango juice"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="عصير مانجو" data-text-en="Mango juice">عصير مانجو</span>
+                
+                <span class="customer-menu-price">3000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="20" data-name="عصير مانجو" data-price="3000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-10">
           <h2 class="customer-menu-cat" data-text-ar="حلويات" data-text-en="candies">حلويات</h2>
           <ul class="customer-menu-list">
             <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
-              <div class="customer-menu-info">
-                <span class="customer-menu-name" data-text-ar="آيس كريم" data-text-en="Ice cream">آيس كريم</span>
-                
-                <span class="customer-menu-price">18 د.ع</span>
-                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
-              </div>
-            </li>
-            <li class="customer-menu-item">
-              <div class="customer-menu-thumb"><span class="customer-menu-thumb-ph" aria-hidden="true">🍽</span></div>
+              <div class="customer-menu-thumb"><img src="./images/product_21.png" alt="كنافة" loading="lazy" data-alt-ar="كنافة" data-alt-en="Kunafa"></div>
               <div class="customer-menu-info">
                 <span class="customer-menu-name" data-text-ar="كنافة" data-text-en="Kunafa">كنافة</span>
                 
-                <span class="customer-menu-price">25 د.ع</span>
+                <span class="customer-menu-price">6000 د.ع</span>
                 <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="21" data-name="كنافة" data-price="6000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-11">
+          <h2 class="customer-menu-cat" data-text-ar="مقبلات" data-text-en="appetizers">مقبلات</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_22.png" alt="سلطة سيزر" loading="lazy" data-alt-ar="سلطة سيزر" data-alt-en="Caesar salad"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="سلطة سيزر" data-text-en="Caesar salad">سلطة سيزر</span>
+                <span class="customer-menu-ingredients" data-text-ar="خس - دجاج -خبر محمص" data-text-en="Lettuce - chicken - toasted bread">خس - دجاج -خبر محمص</span>
+                <span class="customer-menu-price">4000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="22" data-name="سلطة سيزر" data-price="4000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_23.png" alt="سلطة عادية" loading="lazy" data-alt-ar="سلطة عادية" data-alt-en="Regular salad"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="سلطة عادية" data-text-en="Regular salad">سلطة عادية</span>
+                <span class="customer-menu-ingredients" data-text-ar="طماطة - خس - لهانة - خيار" data-text-en="Tomato - lettuce - lahana - cucumber">طماطة - خس - لهانة - خيار</span>
+                <span class="customer-menu-price">2000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="23" data-name="سلطة عادية" data-price="2000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-12">
+          <h2 class="customer-menu-cat" data-text-ar="نركيلة" data-text-en="Hookah">نركيلة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_24.png" alt="نركيلة علك" loading="lazy" data-alt-ar="نركيلة علك" data-alt-en="Hookah gum"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="نركيلة علك" data-text-en="Hookah gum">نركيلة علك</span>
+                
+                <span class="customer-menu-price">6000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="24" data-name="نركيلة علك" data-price="6000.0">+</button>
               </div>
             </li></ul>
         </section>
@@ -570,11 +760,30 @@
   <footer class="customer-menu-footer">
     <a href="./y-ai-info.html" class="customer-menu-yai-info-link" data-i18n="footer">Y-ai info</a>
   </footer>
+  
+  <div id="menuAppGate" class="menu-app-gate">
+    <div class="menu-app-gate-box">
+      <h2>بيانات الطلب</h2>
+      <p>أدخل رقم هاتفك وحدّد موقعك للمتابعة.</p>
+      <label>رقم الهاتف</label>
+      <input type="tel" id="menuAppPhone" dir="ltr" inputmode="tel" placeholder="07xxxxxxxxx">
+      <button type="button" class="customer-menu-add" id="menuAppLocate">تحديد الموقع</button>
+      <p id="menuAppLocTxt" class="menu-app-loc">لم يُحدَّد الموقع بعد</p>
+      <button type="button" class="customer-menu-add" id="menuAppEnter" disabled>دخول التطبيق</button>
+    </div>
+  </div>
+  <div id="menuAppCart" class="menu-app-cart" hidden>
+    <div id="menuAppCartLines"></div>
+    <div class="menu-app-cart-bar">
+      <span id="menuAppCartTotal" class="num-en">0</span>
+      <button type="button" class="customer-menu-add" id="menuAppSend">إرسال الطلب</button>
+    </div>
+  </div>
   <script>
 (function () {
-  var restaurantNameAr = "\u0645\u0637\u0639\u0645 Y";
-  var restaurantNameEn = "\u0645\u0637\u0639\u0645 Y";
-  var starRating = 0;
+  var restaurantNameAr = "\u0645\u0637\u0639\u0645 \u0627\u0644\u0631\u064a\u0641";
+  var restaurantNameEn = "\u0645\u0637\u0639\u0645 \u0627\u0644\u0631\u064a\u0641";
+  var starRating = 4;
   var I18N = {
     ar: {
       menuSubtitle: 'قائمة المأكولات',
@@ -653,6 +862,106 @@
       e.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+  });
+})();
+</script>
+  <script>
+(function () {
+  var appCfg = {"enabled": true, "url": "https://sdwvpvymlgxaexkrauhw.supabase.co/rest/v1", "anon": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkd3ZwdnltbGd4YWV4a3JhdWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTc3MTEsImV4cCI6MjEwNTk5MzcxMX0.piNX62vy7oqV3LYaSFXHi4072PMRwseIuYED4OL5ZFU", "restaurant": "مطعم الريف", "restaurant_id": "alreef"};
+  if (!appCfg || !appCfg.enabled) return;
+  var gate = document.getElementById('menuAppGate');
+  var phoneEl = document.getElementById('menuAppPhone');
+  var locTxt = document.getElementById('menuAppLocTxt');
+  var enterBtn = document.getElementById('menuAppEnter');
+  var loc = { lat: null, lng: null, address: '' };
+  function readyGate() {
+    var ok = (phoneEl && (phoneEl.value || '').replace(/\D/g, '').length >= 8 && loc.lat != null);
+    if (enterBtn) enterBtn.disabled = !ok;
+  }
+  if (phoneEl) phoneEl.addEventListener('input', readyGate);
+  var locBtn = document.getElementById('menuAppLocate');
+  if (locBtn) locBtn.addEventListener('click', function () {
+    if (!navigator.geolocation) { if (locTxt) locTxt.textContent = 'الموقع غير مدعوم'; return; }
+    if (locTxt) locTxt.textContent = 'جاري تحديد الموقع…';
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      loc.lat = pos.coords.latitude;
+      loc.lng = pos.coords.longitude;
+      loc.address = loc.lat.toFixed(5) + ', ' + loc.lng.toFixed(5);
+      if (locTxt) locTxt.textContent = 'تم تحديد الموقع';
+      readyGate();
+    }, function () { if (locTxt) locTxt.textContent = 'تعذر تحديد الموقع — اسمح بالوصول'; }, { enableHighAccuracy: true, timeout: 15000 });
+  });
+  if (enterBtn) enterBtn.addEventListener('click', function () {
+    if (gate) gate.hidden = true;
+    document.body.classList.add('menu-app-ready');
+  });
+  var cart = {};
+  var cartBox = document.getElementById('menuAppCart');
+  var linesEl = document.getElementById('menuAppCartLines');
+  var totalEl = document.getElementById('menuAppCartTotal');
+  function renderCart() {
+    var keys = Object.keys(cart);
+    if (cartBox) cartBox.hidden = keys.length === 0;
+    if (!linesEl) return;
+    var html = '';
+    var total = 0;
+    keys.forEach(function (id) {
+      var it = cart[id];
+      total += it.price * it.qty;
+      html += '<div class="menu-app-line"><span>' + it.name + ' × ' + it.qty + '</span><button type="button" data-rm="' + id + '">−</button></div>';
+    });
+    linesEl.innerHTML = html;
+    if (totalEl) totalEl.textContent = String(Math.round(total));
+    linesEl.querySelectorAll('[data-rm]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-rm');
+        if (!cart[id]) return;
+        cart[id].qty -= 1;
+        if (cart[id].qty <= 0) delete cart[id];
+        renderCart();
+      });
+    });
+  }
+  document.querySelectorAll('.customer-menu-add[data-id]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-id');
+      if (!cart[id]) cart[id] = { product_id: parseInt(id, 10), name: btn.getAttribute('data-name'), price: parseFloat(btn.getAttribute('data-price') || '0'), qty: 0 };
+      cart[id].qty += 1;
+      renderCart();
+    });
+  });
+  var sendBtn = document.getElementById('menuAppSend');
+  if (sendBtn) sendBtn.addEventListener('click', function () {
+    var items = Object.keys(cart).map(function (k) { return cart[k]; });
+    if (!items.length) return;
+    var total = items.reduce(function (s, it) { return s + it.price * it.qty; }, 0);
+    sendBtn.disabled = true;
+    fetch(appCfg.url + '/rest/v1/app_orders', {
+      method: 'POST',
+      headers: {
+        apikey: appCfg.anon,
+        Authorization: 'Bearer ' + appCfg.anon,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify({
+        restaurant_id: appCfg.restaurant_id,
+        customer_phone: (phoneEl && phoneEl.value) || '',
+        delivery_address: loc.address,
+        lat: loc.lat,
+        lng: loc.lng,
+        items: items,
+        total: total,
+        status: 'pending'
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('send');
+      cart = {};
+      renderCart();
+      alert('تم إرسال الطلب إلى المطعم');
+    }).catch(function () {
+      alert('تعذر إرسال الطلب');
+    }).finally(function () { sendBtn.disabled = false; });
   });
 })();
 </script>
