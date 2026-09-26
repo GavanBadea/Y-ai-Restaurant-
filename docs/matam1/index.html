@@ -867,7 +867,7 @@
 </script>
   <script>
 (function () {
-  var appCfg = {"enabled": true, "url": "https://sdwvpvymlgxaexkrauhw.supabase.co/rest/v1", "anon": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkd3ZwdnltbGd4YWV4a3JhdWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTc3MTEsImV4cCI6MjEwNTk5MzcxMX0.piNX62vy7oqV3LYaSFXHi4072PMRwseIuYED4OL5ZFU", "restaurant": "مطعم الريف", "restaurant_id": "alreef"};
+  var appCfg = {"enabled": true, "url": "https://sdwvpvymlgxaexkrauhw.supabase.co", "anon": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkd3ZwdnltbGd4YWV4a3JhdWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTc3MTEsImV4cCI6MjEwNTk5MzcxMX0.piNX62vy7oqV3LYaSFXHi4072PMRwseIuYED4OL5ZFU", "restaurant": "مطعم الريف", "restaurant_id": "alreef"};
   if (!appCfg || !appCfg.enabled) return;
   var gate = document.getElementById('menuAppGate');
   var phoneEl = document.getElementById('menuAppPhone');
@@ -936,7 +936,8 @@
     if (!items.length) return;
     var total = items.reduce(function (s, it) { return s + it.price * it.qty; }, 0);
     sendBtn.disabled = true;
-    fetch(appCfg.url + '/rest/v1/app_orders', {
+    var base = String(appCfg.url || '').replace(/\/+$/, '').replace(/\/rest\/v1$/i, '');
+    fetch(base + '/rest/v1/app_orders', {
       method: 'POST',
       headers: {
         apikey: appCfg.anon,
@@ -955,12 +956,16 @@
         status: 'pending'
       })
     }).then(function (r) {
-      if (!r.ok) throw new Error('send');
+      if (!r.ok) {
+        return r.text().then(function (t) {
+          throw new Error((r.status || '') + ' ' + (t || r.statusText || 'send'));
+        });
+      }
       cart = {};
       renderCart();
       alert('تم إرسال الطلب إلى المطعم');
-    }).catch(function () {
-      alert('تعذر إرسال الطلب');
+    }).catch(function (e) {
+      alert('تعذر إرسال الطلب' + (e && e.message ? ': ' + e.message : ''));
     }).finally(function () { sendBtn.disabled = false; });
   });
 })();
