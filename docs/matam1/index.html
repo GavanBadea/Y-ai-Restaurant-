@@ -7,8 +7,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="مطعم الريف">
-  <title>مطعم الريف — قائمة المأكولات</title>
+  <meta name="apple-mobile-web-app-title" content="مطعم Popeye">
+  <title>مطعم Popeye — قائمة المأكولات</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -851,14 +851,14 @@ html:has(.customer-menu-app),
     </div>
     <div class="customer-menu-header-top">
       <div class="customer-menu-brand">
-        <img src="./images/logo.png" alt="مطعم الريف" class="customer-menu-logo" width="40" height="40">
+        <img src="./images/logo.png" alt="مطعم Popeye" class="customer-menu-logo" width="40" height="40">
       </div>
       <div class="customer-menu-meta">
         <p class="customer-menu-subtitle" data-i18n="menuSubtitle">قائمة المأكولات</p>
-        <h1 data-text-ar="مطعم الريف" data-text-en="مطعم الريف">مطعم الريف</h1>
+        <h1 data-text-ar="مطعم Popeye" data-text-en="مطعم Popeye">مطعم Popeye</h1>
         <div class="customer-menu-stars" data-i18n-aria="starsLabel" aria-label="4 من 5"><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star ">★</span></div>
-        <p class="customer-menu-phone" data-text-ar="07504505340 -07725694017" data-text-en="07504505340 -07725694017">07504505340 -07725694017</p>
-        <p class="customer-menu-address" data-text-ar="زاخو  المجمع التجاري" data-text-en="زاخو  المجمع التجاري">زاخو  المجمع التجاري</p>
+        <p class="customer-menu-phone" data-text-ar="07753653322 - 07725875544" data-text-en="07753653322 - 07725875544">07753653322 - 07725875544</p>
+        <p class="customer-menu-address" data-text-ar="زاخو  -مركز المدينة" data-text-en="زاخو  -مركز المدينة">زاخو  -مركز المدينة</p>
       </div>
     </div>
     <nav class="customer-menu-cat-nav" aria-label="أقسام المنيو" data-i18n-aria="sectionsNav">
@@ -1079,17 +1079,20 @@ html:has(.customer-menu-app),
     <a href="./y-ai-info.html" class="customer-menu-yai-info-link" data-i18n="footer">Y-ai info</a>
   </footer>
   
-  <div id="pwaInstallBanner" class="pwa-install-banner" hidden>
-    <img src="./images/logo.png" alt="" class="customer-menu-logo" width="52" height="52">
-    <p>تنزيل تطبيق <strong>مطعم الريف</strong></p>
-    <div class="pwa-install-actions">
-      <button type="button" class="customer-menu-add" id="pwaInstallYes">تنزيل</button>
-      <button type="button" class="customer-menu-lang-btn" id="pwaInstallNo">لاحقاً</button>
+  <div id="pwaInstallBanner" class="pwa-install-overlay" hidden>
+    <div class="pwa-install-card">
+      <img src="./images/logo.png" alt="" class="customer-menu-logo" width="64" height="64">
+      <p>تنزيل تطبيق <strong>مطعم Popeye</strong></p>
+      <span class="pwa-install-hint">ثبّت التطبيق على هاتفك للطلب بسهولة</span>
+      <div class="pwa-install-actions">
+        <button type="button" class="customer-menu-add" id="pwaInstallYes">تنزيل</button>
+        <button type="button" class="customer-menu-lang-btn" id="pwaInstallNo">لاحقاً</button>
+      </div>
     </div>
   </div>
   <div id="menuAppGate" class="menu-app-gate">
     <div class="menu-app-gate-box">
-      <img src="./images/logo.png" alt="مطعم الريف" class="customer-menu-logo" width="56" height="56">
+      <img src="./images/logo.png" alt="مطعم Popeye" class="customer-menu-logo" width="56" height="56">
       <h2>بيانات الطلب</h2>
       <p>أدخل رقم هاتفك للمتابعة.</p>
       <label>رقم الهاتف</label>
@@ -1119,8 +1122,8 @@ html:has(.customer-menu-app),
   <div id="menuAppToast" class="menu-app-toast" hidden>تم إرسال الطلب</div>
   <script>
 (function () {
-  var restaurantNameAr = "\u0645\u0637\u0639\u0645 \u0627\u0644\u0631\u064a\u0641";
-  var restaurantNameEn = "\u0645\u0637\u0639\u0645 \u0627\u0644\u0631\u064a\u0641";
+  var restaurantNameAr = "\u0645\u0637\u0639\u0645 Popeye";
+  var restaurantNameEn = "\u0645\u0637\u0639\u0645 Popeye";
   var starRating = 4;
   var I18N = {
     ar: {
@@ -1205,7 +1208,7 @@ html:has(.customer-menu-app),
 </script>
   <script>
 (function () {
-  var appCfg = {"enabled": true, "url": "https://sdwvpvymlgxaexkrauhw.supabase.co", "anon": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkd3ZwdnltbGd4YWV4a3JhdWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTc3MTEsImV4cCI6MjEwNTk5MzcxMX0.piNX62vy7oqV3LYaSFXHi4072PMRwseIuYED4OL5ZFU", "restaurant": "مطعم الريف", "restaurant_id": "alreef"};
+  var appCfg = {"enabled": true, "url": "https://sdwvpvymlgxaexkrauhw.supabase.co", "anon": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkd3ZwdnltbGd4YWV4a3JhdWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTc3MTEsImV4cCI6MjEwNTk5MzcxMX0.piNX62vy7oqV3LYaSFXHi4072PMRwseIuYED4OL5ZFU", "restaurant": "مطعم Popeye", "restaurant_id": "alreef"};
   if (!appCfg || !appCfg.enabled) return;
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(function () {});
