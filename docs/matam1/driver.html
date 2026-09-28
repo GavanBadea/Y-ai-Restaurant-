@@ -697,6 +697,16 @@ html:has(.customer-menu-app),
   height: clamp(64px, 16vw, 104px);
   margin: 0 auto 4px;
 }
+.menu-app-gate-box .menu-app-gate-name {
+  margin: 0;
+  font-size: clamp(1.25rem, 4vw, 1.85rem);
+  text-align: center;
+  color: #fff;
+}
+.menu-app-gate-box .customer-menu-stars {
+  justify-content: center;
+  margin: 0;
+}
 .menu-app-gate-box h2 {
   margin: 0;
   font-size: clamp(1.3rem, 4.2vw, 2rem);
@@ -722,7 +732,33 @@ html:has(.customer-menu-app),
   border-radius: 14px;
   padding: clamp(10px, 1.8vw, 16px);
 }
+.menu-app-gate-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+.menu-app-gate-actions .menu-app-gate-sq {
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 0;
+  height: auto;
+  border-radius: 16px;
+  padding: 10px;
+  font-size: clamp(0.82rem, 2.5vw, 1.02rem);
+  line-height: 1.35;
+  white-space: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .menu-app-gate-box .menu-app-loc { color: #94a3b8; }
+.customer-menu-app.menu-app-ready .customer-menu-meta > h1,
+.customer-menu-app.menu-app-ready .customer-menu-phone,
+.customer-menu-app.menu-app-ready .customer-menu-address {
+  display: none !important;
+}
 #menuAppSend {
   min-height: clamp(48px, 8vw, 56px);
   padding: 12px 22px;
