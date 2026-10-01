@@ -1129,6 +1129,7 @@ html:has(.customer-menu-app),
       <img src="./images/logo.png" alt="" class="customer-menu-logo" width="64" height="64">
       <p>تنزيل تطبيق <strong>مطعم Popeye</strong></p>
       <span class="pwa-install-hint">ثبّت التطبيق على هاتفك للطلب بسهولة</span>
+      <p class="pwa-install-ios" id="pwaIosSteps" hidden>على الآيفون: افتح الصفحة في <strong>سفاري</strong> ← اضغط زر المشاركة <strong>⎙</strong> في أسفل الشاشة ← اختر «<strong>إضافة إلى الشاشة الرئيسية</strong>»</p>
       <div class="pwa-install-actions">
         <button type="button" class="customer-menu-add" id="pwaInstallYes">تنزيل</button>
         <button type="button" class="customer-menu-lang-btn" id="pwaInstallNo">لاحقاً</button>
@@ -1263,13 +1264,25 @@ html:has(.customer-menu-app),
   }
   var deferredPrompt = null;
   var banner = document.getElementById('pwaInstallBanner');
+  function isIosDevice() {
+    var ua = navigator.userAgent || '';
+    return /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+  function isStandaloneApp() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  }
+  function isEmbeddedBrowser() {
+    var ua = navigator.userAgent || '';
+    return /FBAN|FBAV|Instagram|Line\/|WhatsApp|Twitter|Snapchat/i.test(ua);
+  }
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
     deferredPrompt = e;
-    if (banner && !localStorage.getItem('yaiPwaSkip')) banner.hidden = false;
+    if (banner && !localStorage.getItem('yaiPwaSkip') && !isStandaloneApp()) banner.hidden = false;
   });
   var yes = document.getElementById('pwaInstallYes');
   var no = document.getElementById('pwaInstallNo');
+  var iosSteps = document.getElementById('pwaIosSteps');
   if (yes) yes.addEventListener('click', function () {
     if (deferredPrompt) {
       deferredPrompt.prompt();
@@ -1277,17 +1290,39 @@ html:has(.customer-menu-app),
         deferredPrompt = null;
         if (banner) banner.hidden = true;
       });
-    } else if (banner) {
-      banner.hidden = true;
-      alert('من المتصفح: مشاركة ← إضافة إلى الشاشة الرئيسية');
+      return;
     }
+    if (isIosDevice()) {
+      if (iosSteps) iosSteps.hidden = false;
+      if (iosSteps) iosSteps.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return;
+    }
+    if (isEmbeddedBrowser()) {
+      if (iosSteps) {
+        iosSteps.hidden = false;
+        iosSteps.textContent = 'افتح الرابط في سفاري أولاً ثم أضفه إلى الشاشة الرئيسية';
+      }
+      return;
+    }
+    alert('من المتصفح: القائمة ← تثبيت التطبيق أو إضافة إلى الشاشة الرئيسية');
   });
   if (no) no.addEventListener('click', function () {
     try { localStorage.setItem('yaiPwaSkip', '1'); } catch (e) {}
     if (banner) banner.hidden = true;
   });
-  if (banner && !window.matchMedia('(display-mode: standalone)').matches && !localStorage.getItem('yaiPwaSkip')) {
+  if (banner && !isStandaloneApp() && !localStorage.getItem('yaiPwaSkip')) {
     banner.hidden = false;
+    if (isIosDevice()) {
+      if (iosSteps) iosSteps.hidden = false;
+      if (yes) yes.textContent = 'كيف أضيفه؟';
+    }
+    if (isEmbeddedBrowser()) {
+      if (iosSteps) {
+        iosSteps.hidden = false;
+        iosSteps.textContent = 'افتح الرابط في سفاري (وليس واتساب) للتنزيل وتحديد الموقع';
+      }
+      if (yes) yes.textContent = 'افتح في سفاري';
+    }
   }
   var gate = document.getElementById('menuAppGate');
   var phoneEl = document.getElementById('menuAppPhone');
@@ -1303,14 +1338,45 @@ html:has(.customer-menu-app),
   if (addrEl) addrEl.addEventListener('input', readyGate);
   var locBtn = document.getElementById('menuAppLocate');
   if (locBtn) locBtn.addEventListener('click', function () {
+    if (isEmbeddedBrowser()) {
+      if (locTxt) locTxt.textContent = 'افتح الرابط في سفاري ثم اضغط تحديد الموقع';
+      return;
+    }
     if (!navigator.geolocation) { if (locTxt) locTxt.textContent = 'الموقع غير مدعوم'; return; }
-    if (locTxt) locTxt.textContent = 'جاري تحديد الموقع…';
-    navigator.geolocation.getCurrentPosition(function (pos) {
+    if (!window.isSecureContext) { if (locTxt) locTxt.textContent = 'الموقع يحتاج رابط https'; return; }
+    if (locTxt) locTxt.textContent = 'جاري تحديد الموقع… انتظر قليلاً';
+    var done = false;
+    var timer = null;
+    function onOk(pos) {
+      if (done || !pos || !pos.coords) return;
+      done = true;
+      if (timer) clearTimeout(timer);
       loc.lat = pos.coords.latitude;
       loc.lng = pos.coords.longitude;
-      if (locTxt) locTxt.textContent = 'تم تحديد الموقع';
+      if (locTxt) locTxt.textContent = 'تم تحديد الموقع ✓';
       readyGate();
-    }, function () { if (locTxt) locTxt.textContent = 'تعذر تحديد الموقع — اسمح بالوصول'; }, { enableHighAccuracy: true, timeout: 15000 });
+    }
+    function onDenied() {
+      if (done) return;
+      done = true;
+      if (timer) clearTimeout(timer);
+      if (locTxt) locTxt.textContent = isStandaloneApp()
+        ? 'اسمح للموقع: الإعدادات ← الخصوصية ← خدمات الموقع ← التطبيق'
+        : 'اسمح للموقع: الإعدادات ← الخصوصية ← خدمات الموقع ← سفاري ← الموقع';
+    }
+    function onGiveUp() {
+      if (done) return;
+      done = true;
+      if (locTxt) locTxt.textContent = 'تأخر الموقع — أعد الضغط وأنت خارج المبنى';
+    }
+    timer = setTimeout(onGiveUp, 60000);
+    try {
+      navigator.geolocation.getCurrentPosition(onOk, function (err) {
+        if (err && err.code === 1) { onDenied(); } else { onGiveUp(); }
+      }, { enableHighAccuracy: true, timeout: 55000, maximumAge: 0 });
+    } catch (e) {
+      onGiveUp();
+    }
   });
   if (enterBtn) enterBtn.addEventListener('click', function () {
     if (gate) gate.hidden = true;
