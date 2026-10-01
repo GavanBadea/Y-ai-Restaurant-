@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="customerMenuRoot">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1b2a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="مطعم Popeye">
+  <title>مطعم Popeye — قائمة المأكولات</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>/* قائمة المأكولات للزبون — موبايل */
+.customer-menu-body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Tajawal, Tahoma, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #1a1a1a;
+  background: linear-gradient(180deg, #eef4fb 0%, #f8fafc 40%, #fff 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+.customer-menu-header {
+  padding: 14px 12px 12px;
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b3a5c 100%);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(13, 27, 42, 0.25);
+}
+
+.customer-menu-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.customer-menu-back-btn,
+.customer-menu-lang-btn {
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.customer-menu-back-btn {
+  display: inline-flex;
+  align-items: center;
+}
+
+.customer-menu-back-btn:hover,
+.customer-menu-lang-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.customer-menu-header-actions .customer-menu-lang-btn {
+  margin-inline-start: auto;
+}
+
+.customer-menu-subtitle {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.88;
+}
+
+.customer-menu-body--en .customer-menu-meta {
+  align-items: flex-start;
+  text-align: start;
+}
+
+.customer-menu-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.customer-menu-brand {
+  flex-shrink: 0;
+}
+
+.customer-menu-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: start;
+}
+
+.customer-menu-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #fff;
+  padding: 5px;
+  display: block;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+}
+
+.customer-menu-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.customer-menu-stars {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3px;
+  margin-top: 2px;
+}
+
+.customer-menu-star {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.28);
+  line-height: 1;
+}
+
+.customer-menu-star.is-filled {
+  color: #f5c542;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.customer-menu-phone {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  opacity: 0.92;
+  direction: ltr;
+  text-align: start;
+}
+
+.customer-menu-address {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  opacity: 0.88;
+  line-height: 1.45;
+}
+
+.customer-menu-cat-nav {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.customer-menu-cat-nav-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 40px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  padding: 2px 2px 8px;
+}
+
+.customer-menu-cat-nav-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.customer-menu-cat-nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+
+.customer-menu-cat-nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.customer-menu-cat-btn {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  min-height: 36px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.customer-menu-cat-btn:active,
+.customer-menu-cat-btn:hover {
+  background: rgba(255, 255, 255, 0.34);
+  border-color: rgba(255, 255, 255, 0.75);
+  transform: translateY(-1px);
+}
+
+.customer-menu-main {
+  padding: 12px 12px 32px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.customer-menu-section {
+  margin-bottom: 16px;
+  scroll-margin-top: 14px;
+  padding: 14px 12px 16px;
+  border-radius: 16px;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1b3a5c 100%);
+  box-shadow: 0 4px 18px rgba(13, 27, 42, 0.22);
+}
+
+.customer-menu-cat {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: none;
+}
+
+.customer-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.customer-menu-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e8edf3;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.customer-menu-item--unavail {
+  opacity: 0.72;
+  background: #f5f6f8;
+}
+
+.customer-menu-thumb {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eef2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-menu-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.customer-menu-thumb-ph {
+  font-size: 1.8rem;
+}
+
+.customer-menu-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.customer-menu-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #111;
+}
+
+.customer-menu-ingredients {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.customer-menu-price {
+  font-weight: 600;
+  color: #1b4332;
+  font-variant-numeric: tabular-nums;
+}
+
+.customer-menu-price .money-value {
+  display: inline-flex;
+  align-items: baseline;
+  direction: ltr;
+  unicode-bidi: isolate;
+  gap: 0.3em;
+  white-space: nowrap;
+}
+.customer-menu-price .money-curr {
+  font-size: 0.72em;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.customer-menu-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.customer-menu-badge--yes {
+  background: #d8f3dc;
+  color: #1b4332;
+}
+
+.customer-menu-badge--no {
+  background: #fde8e8;
+  color: #9d0208;
+}
+
+.customer-menu-empty {
+  text-align: center;
+  color: #666;
+  padding: 40px 16px;
+}
+
+.customer-menu-footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.82rem;
+  color: #888;
+}
+.customer-menu-yai-info-link {
+  color: #1b3a5c;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.customer-menu-yai-info-link:hover {
+  color: #0d1b2a;
+}
+
+.y-ai-info-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+}
+.y-ai-info-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(13, 27, 42, 0.08);
+  border: 1px solid rgba(13, 27, 42, 0.06);
+}
+.y-ai-info-name {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0d1b2a;
+}
+.y-ai-info-line {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+}
+.y-ai-info-line:last-child {
+  margin-bottom: 0;
+}
+.y-ai-info-section-title {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  line-height: 1.45;
+}
+.y-ai-info-programs {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #333;
+}
+.y-ai-info-programs li + li {
+  margin-top: 10px;
+}
+.y-ai-info-cta {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: #1b3a5c;
+  padding: 0 8px;
+}
+.y-ai-info-header .customer-menu-back-btn {
+  display: inline-flex !important;
+}
+.y-ai-info-programs--with-images li {
+  list-style: decimal;
+}
+.y-ai-info-program-text {
+  margin: 0 0 10px;
+}
+.y-ai-info-promo {
+  margin: 0 0 4px;
+  padding: 0;
+}
+.y-ai-info-promo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(13, 27, 42, 0.08);
+  box-shadow: 0 4px 16px rgba(13, 27, 42, 0.12);
+}
+
+@media (min-width: 600px) {
+  .customer-menu-header-top { align-items: center; }
+  .customer-menu-header h1 { font-size: 1.45rem; }
+  .customer-menu-logo { width: 56px; height: 56px; }
+  .customer-menu-main { padding: 20px 20px 40px; }
+}
+
+.customer-menu-add {
+  margin-top: 6px;
+  font-family: inherit;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 12px;
+  background: #16a34a;
+  color: #fff;
+  cursor: pointer;
+}
+.customer-menu-add[data-id] {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  padding: 0;
+  margin-top: 8px;
+  border-radius: 14px;
+  font-size: 2rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pwa-install-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 32px);
+  background: rgba(13, 27, 42, 0.28);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.pwa-install-overlay[hidden] { display: none !important; }
+.pwa-install-card {
+  width: min(440px, 100%);
+  background: #0d1b2a;
+  color: #fff;
+  border-radius: 20px;
+  padding: clamp(22px, 4.5vw, 34px);
+  text-align: center;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.38);
+}
+.pwa-install-card .customer-menu-logo {
+  width: clamp(56px, 14vw, 80px);
+  height: clamp(56px, 14vw, 80px);
+  margin: 0 auto;
+}
+.pwa-install-card p {
+  margin: 16px 0 0;
+  font-size: clamp(1.08rem, 3.6vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1.5;
+}
+.pwa-install-hint {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(0.9rem, 2.8vw, 1.05rem);
+  font-weight: 600;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+.pwa-install-ios {
+  display: block;
+  margin-top: 10px;
+  font-size: clamp(0.88rem, 2.8vw, 1.02rem);
+  font-weight: 700;
+  color: #fde68a;
+  line-height: 1.5;
+}
+.pwa-install-ios[hidden] { display: none !important; }
+.pwa-install-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  justify-content: center;
+}
+.pwa-install-actions .customer-menu-add,
+.pwa-install-actions .customer-menu-lang-btn {
+  flex: 1;
+  min-height: 48px;
+  font-size: 1.05rem;
+  padding: 10px 16px;
+}
+.menu-app-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(13,27,42,.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.menu-app-gate[hidden] { display: none; }
+.menu-app-gate-box {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.menu-app-gate-box input {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+.menu-app-loc { color: #475569; font-size: 0.9rem; }
+.menu-app-cart {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  padding: 10px 12px 16px;
+}
+.menu-app-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+.menu-app-cart-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* تطبيق ملء الشاشة — منيو الزبون فقط */
+html:has(.customer-menu-app),
+.customer-menu-app {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  max-width: 100%;
+}
+.customer-menu-app {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.customer-menu-app *,
+.customer-menu-app *::before,
+.customer-menu-app *::after { box-sizing: border-box; }
+.customer-menu-app .customer-menu-header {
+  flex-shrink: 0;
+  padding: clamp(8px, 1.8vw, 18px) clamp(10px, 2.6vw, 28px) clamp(8px, 1.5vw, 16px);
+}
+.customer-menu-app .customer-menu-header-actions { margin-bottom: clamp(6px, 1.2vw, 12px); }
+.customer-menu-app .customer-menu-header-top { gap: clamp(10px, 2vw, 18px); margin-bottom: clamp(8px, 1.6vw, 16px); }
+.customer-menu-app .customer-menu-logo {
+  width: clamp(48px, 9vw, 76px);
+  height: clamp(48px, 9vw, 76px);
+}
+.customer-menu-app .customer-menu-header h1 { font-size: clamp(1.12rem, 3.8vw, 1.75rem); }
+.customer-menu-app .customer-menu-subtitle { font-size: clamp(0.78rem, 2.2vw, 0.95rem); }
+.customer-menu-app .customer-menu-phone,
+.customer-menu-app .customer-menu-address { font-size: clamp(0.82rem, 2.4vw, 1rem); }
+.customer-menu-app .customer-menu-star { font-size: clamp(0.95rem, 2.6vw, 1.2rem); }
+.customer-menu-app .customer-menu-back-btn,
+.customer-menu-app .customer-menu-lang-btn {
+  font-size: clamp(0.78rem, 2.1vw, 0.95rem);
+  padding: clamp(7px, 1.2vw, 10px) clamp(12px, 2vw, 16px);
+}
+.customer-menu-app .customer-menu-cat-btn {
+  min-height: clamp(36px, 6vw, 44px);
+  padding: clamp(7px, 1.2vw, 10px) clamp(14px, 2.4vw, 20px);
+  font-size: clamp(0.86rem, 2.3vw, 1.02rem);
+}
+.customer-menu-app .customer-menu-main {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: none;
+  width: 100%;
+  padding: clamp(10px, 2.2vw, 24px) clamp(10px, 2.8vw, 28px)
+    calc(clamp(88px, 14vw, 110px) + env(safe-area-inset-bottom));
+}
+.customer-menu-app .customer-menu-section {
+  max-width: min(1100px, 100%);
+  margin-inline: auto;
+  margin-bottom: clamp(12px, 2vw, 20px);
+  padding: clamp(12px, 2vw, 20px);
+}
+.customer-menu-app .customer-menu-cat {
+  font-size: clamp(1.05rem, 3vw, 1.3rem);
+  margin-bottom: clamp(10px, 1.6vw, 16px);
+}
+.customer-menu-app .customer-menu-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(8px, 1.6vw, 14px);
+}
+.customer-menu-app .customer-menu-item {
+  min-height: clamp(88px, 16vw, 118px);
+  padding: clamp(10px, 1.8vw, 16px);
+  gap: clamp(10px, 2vw, 16px);
+}
+.customer-menu-app .customer-menu-thumb {
+  width: clamp(64px, 14vw, 92px);
+  height: clamp(64px, 14vw, 92px);
+}
+.customer-menu-app .customer-menu-name { font-size: clamp(0.98rem, 2.8vw, 1.18rem); }
+.customer-menu-app .customer-menu-ingredients { font-size: clamp(0.74rem, 2vw, 0.88rem); }
+.customer-menu-app .customer-menu-price { font-size: clamp(0.92rem, 2.5vw, 1.08rem); }
+.customer-menu-app .customer-menu-add[data-id] {
+  width: clamp(48px, 10vw, 62px);
+  height: clamp(48px, 10vw, 62px);
+  min-width: clamp(48px, 10vw, 62px);
+  font-size: clamp(1.6rem, 5vw, 2.1rem);
+}
+.customer-menu-app .customer-menu-footer { flex-shrink: 0; padding: clamp(10px, 1.6vw, 16px); }
+.menu-app-gate {
+  padding: 0;
+  background: #0d1b2a;
+  align-items: stretch;
+}
+.menu-app-gate-box {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  max-width: none;
+  border-radius: 0;
+  padding: clamp(20px, 4vw, 40px) clamp(18px, 5vw, 48px)
+    calc(clamp(20px, 4vw, 36px) + env(safe-area-inset-bottom));
+  gap: clamp(8px, 1.8vw, 16px);
+  justify-content: center;
+  background: #0d1b2a;
+  color: #fff;
+  box-sizing: border-box;
+}
+.menu-app-gate-box .customer-menu-logo {
+  width: clamp(64px, 16vw, 104px);
+  height: clamp(64px, 16vw, 104px);
+  margin: 0 auto 4px;
+}
+.menu-app-gate-box .menu-app-gate-name {
+  margin: 0;
+  font-size: clamp(1.25rem, 4vw, 1.85rem);
+  text-align: center;
+  color: #fff;
+}
+.menu-app-gate-box .customer-menu-stars {
+  justify-content: center;
+  margin: 0;
+}
+.menu-app-gate-box h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 4.2vw, 2rem);
+  text-align: center;
+  color: #fff;
+}
+.menu-app-gate-box p,
+.menu-app-gate-box label {
+  color: #e2e8f0;
+  font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+}
+.menu-app-gate-box input {
+  min-height: clamp(46px, 8vw, 58px);
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  padding: clamp(10px, 1.8vw, 16px);
+  border-radius: 14px;
+}
+.menu-app-gate-box .customer-menu-add,
+.menu-app-gate-box button {
+  width: 100%;
+  min-height: clamp(46px, 8vw, 58px);
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  border-radius: 14px;
+  padding: clamp(10px, 1.8vw, 16px);
+}
+.menu-app-gate-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+.menu-app-gate-actions .menu-app-gate-sq {
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 0;
+  height: auto;
+  border-radius: 16px;
+  padding: 10px;
+  font-size: clamp(0.82rem, 2.5vw, 1.02rem);
+  line-height: 1.35;
+  white-space: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.menu-app-gate-box .menu-app-loc { color: #94a3b8; }
+.customer-menu-app.menu-app-ready .customer-menu-meta > h1,
+.customer-menu-app.menu-app-ready .customer-menu-phone,
+.customer-menu-app.menu-app-ready .customer-menu-address {
+  display: none !important;
+}
+#menuAppSend {
+  min-height: clamp(48px, 8vw, 56px);
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: clamp(1.05rem, 2.8vw, 1.2rem);
+}
+
+@media (min-width: 640px) {
+  .customer-menu-app .customer-menu-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .menu-app-gate-box {
+    max-width: 520px;
+    margin: auto;
+    height: auto;
+    min-height: min(100dvh, 780px);
+    border-radius: 20px;
+    padding: 32px 28px;
+  }
+  .menu-app-cart-sheet { align-items: center; justify-content: center; }
+  .menu-app-cart-sheet-inner {
+    width: min(560px, 92vw);
+    max-height: 80vh;
+    border-radius: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .customer-menu-app .customer-menu-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .customer-menu-app .customer-menu-section { max-width: 980px; }
+}
+
+@media (min-width: 1180px) {
+  .customer-menu-app .customer-menu-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .customer-menu-app .customer-menu-section { max-width: 1140px; }
+}
+.menu-app-cart-fab {
+  position: fixed;
+  left: 18px;
+  bottom: calc(22px + env(safe-area-inset-bottom));
+  z-index: 45;
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 50%;
+  background: #16a34a;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(22, 163, 74, 0.4);
+  cursor: pointer;
+}
+.menu-app-cart-fab[hidden] { display: none; }
+.menu-app-cart-fab-icon { font-size: 1.5rem; }
+.menu-app-cart-fab-count {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #dc2626;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 20px;
+}
+.menu-app-cart-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgba(13, 27, 42, 0.55);
+  display: flex;
+  align-items: flex-end;
+}
+.menu-app-cart-sheet[hidden] { display: none; }
+.menu-app-cart-sheet-inner {
+  width: 100%;
+  max-height: 86vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 18px 18px 0 0;
+  padding: 16px 16px calc(18px + env(safe-area-inset-bottom));
+}
+.menu-app-line-qty { display: inline-flex; align-items: center; gap: 8px; }
+.menu-app-line-qty button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #0d1b2a;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+.menu-app-cart-note {
+  color: #dc2626;
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin: 12px 0;
+}
+.menu-app-toast {
+  position: fixed;
+  left: 50%;
+  top: 28%;
+  transform: translateX(-50%);
+  z-index: 70;
+  background: #0d1b2a;
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: 800;
+}
+.menu-app-toast[hidden] { display: none; }
+</style>
+</head>
+<body class="customer-menu-body customer-menu-app">
+  <header class="customer-menu-header">
+    <div class="customer-menu-header-actions">
+      <button type="button" class="customer-menu-lang-btn" id="customerMenuLangBtn" aria-label="Switch language">English</button>
+    </div>
+    <div class="customer-menu-header-top">
+      <div class="customer-menu-brand">
+        <img src="./images/logo.png" alt="مطعم Popeye" class="customer-menu-logo" width="40" height="40">
+      </div>
+      <div class="customer-menu-meta">
+        <p class="customer-menu-subtitle" data-i18n="menuSubtitle">قائمة المأكولات</p>
+        <h1 data-text-ar="مطعم Popeye" data-text-en="مطعم Popeye">مطعم Popeye</h1>
+        <div class="customer-menu-stars" data-i18n-aria="starsLabel" aria-label="4 من 5"><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star ">★</span></div>
+        <p class="customer-menu-phone" data-text-ar="07753653322 - 07725875544" data-text-en="07753653322 - 07725875544">07753653322 - 07725875544</p>
+        <p class="customer-menu-address" data-text-ar="زاخو  -مركز المدينة" data-text-en="زاخو  -مركز المدينة">زاخو  -مركز المدينة</p>
+      </div>
+    </div>
+    <nav class="customer-menu-cat-nav" aria-label="أقسام المنيو" data-i18n-aria="sectionsNav">
+      <div class="customer-menu-cat-nav-scroll">
+        <a href="#cat-4" class="customer-menu-cat-btn" data-text-ar="فطور" data-text-en="breakfast">فطور</a>
+<a href="#cat-5" class="customer-menu-cat-btn" data-text-ar="غذاء" data-text-en="food">غذاء</a>
+<a href="#cat-6" class="customer-menu-cat-btn" data-text-ar="عشاء" data-text-en="dinner">عشاء</a>
+<a href="#cat-7" class="customer-menu-cat-btn" data-text-ar="وجبات سريعة" data-text-en="Fast food">وجبات سريعة</a>
+<a href="#cat-8" class="customer-menu-cat-btn" data-text-ar="مشروبات ساخنة" data-text-en="Hot drinks">مشروبات ساخنة</a>
+<a href="#cat-9" class="customer-menu-cat-btn" data-text-ar="مشروبات باردة" data-text-en="Cold drinks">مشروبات باردة</a>
+<a href="#cat-10" class="customer-menu-cat-btn" data-text-ar="حلويات" data-text-en="candies">حلويات</a>
+<a href="#cat-11" class="customer-menu-cat-btn" data-text-ar="مقبلات" data-text-en="appetizers">مقبلات</a>
+<a href="#cat-12" class="customer-menu-cat-btn" data-text-ar="نركيلة" data-text-en="Hookah">نركيلة</a>
+
+      </div>
+    </nav>
+  </header>
+  <main class="customer-menu-main">
+    
+        <section class="customer-menu-section" id="cat-4">
+          <h2 class="customer-menu-cat" data-text-ar="فطور" data-text-en="breakfast">فطور</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_9.png" alt="بيض" loading="lazy" data-alt-ar="بيض" data-alt-en="egg"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="بيض" data-text-en="egg">بيض</span>
+                <span class="customer-menu-ingredients" data-text-ar="2 بيض مقلي بالزيت مع خبز" data-text-en="2 eggs fried in oil with bread">2 بيض مقلي بالزيت مع خبز</span>
+                <span class="customer-menu-price">2000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="9" data-name="بيض" data-price="2000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_10.png" alt="وجبة كاملة" loading="lazy" data-alt-ar="وجبة كاملة" data-alt-en="A complete meal"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="وجبة كاملة" data-text-en="A complete meal">وجبة كاملة</span>
+                <span class="customer-menu-ingredients" data-text-ar="خبز-بيض-راشي-لبن-قلية-زيتون-طمامة مقلية" data-text-en="Bread - eggs - rashi - yogurt - frying pan - olives - fried tomato">خبز-بيض-راشي-لبن-قلية-زيتون-طمامة مقلية</span>
+                <span class="customer-menu-price">8000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="10" data-name="وجبة كاملة" data-price="8000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-5">
+          <h2 class="customer-menu-cat" data-text-ar="غذاء" data-text-en="food">غذاء</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_11.png" alt="مشويات" loading="lazy" data-alt-ar="مشويات" data-alt-en="Grilled"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="مشويات" data-text-en="Grilled">مشويات</span>
+                <span class="customer-menu-ingredients" data-text-ar="كباب - تكة - معلاق" data-text-en="Kebab - tikka - malaq">كباب - تكة - معلاق</span>
+                <span class="customer-menu-price">12000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="11" data-name="مشويات" data-price="12000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_12.png" alt="ورق عنب" loading="lazy" data-alt-ar="ورق عنب" data-alt-en="grape leaves"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="ورق عنب" data-text-en="grape leaves">ورق عنب</span>
+                <span class="customer-menu-ingredients" data-text-ar="زر ملفوف بورق عنب" data-text-en="Button wrapped in grape leaves">زر ملفوف بورق عنب</span>
+                <span class="customer-menu-price">6000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="12" data-name="ورق عنب" data-price="6000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-6">
+          <h2 class="customer-menu-cat" data-text-ar="عشاء" data-text-en="dinner">عشاء</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_13.png" alt="كبة عراقية" loading="lazy" data-alt-ar="كبة عراقية" data-alt-en="Iraqi kibbeh"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="كبة عراقية" data-text-en="Iraqi kibbeh">كبة عراقية</span>
+                <span class="customer-menu-ingredients" data-text-ar="لحم - البرغل" data-text-en="Meat - bulgur">لحم - البرغل</span>
+                <span class="customer-menu-price">6000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="13" data-name="كبة عراقية" data-price="6000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-7">
+          <h2 class="customer-menu-cat" data-text-ar="وجبات سريعة" data-text-en="Fast food">وجبات سريعة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_14.png" alt="بطاطس مقلية" loading="lazy" data-alt-ar="بطاطس مقلية" data-alt-en="French fries"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="بطاطس مقلية" data-text-en="French fries">بطاطس مقلية</span>
+                <span class="customer-menu-ingredients" data-text-ar="بطاطة اصبعية مقلية بالزيت" data-text-en="Fingerling potatoes fried in oil">بطاطة اصبعية مقلية بالزيت</span>
+                <span class="customer-menu-price">3000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="14" data-name="بطاطس مقلية" data-price="3000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_15.png" alt="بيتزا" loading="lazy" data-alt-ar="بيتزا" data-alt-en="Pizza"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="بيتزا" data-text-en="Pizza">بيتزا</span>
+                <span class="customer-menu-ingredients" data-text-ar="لحم - دجاج - جبن -زيتون -سجق" data-text-en="Meat - chicken - cheese - olives - sausage">لحم - دجاج - جبن -زيتون -سجق</span>
+                <span class="customer-menu-price">10000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="15" data-name="بيتزا" data-price="10000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-8">
+          <h2 class="customer-menu-cat" data-text-ar="مشروبات ساخنة" data-text-en="Hot drinks">مشروبات ساخنة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_16.png" alt="شاي" loading="lazy" data-alt-ar="شاي" data-alt-en="tea"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="شاي" data-text-en="tea">شاي</span>
+                
+                <span class="customer-menu-price">250 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="16" data-name="شاي" data-price="250.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_17.png" alt="قهوة" loading="lazy" data-alt-ar="قهوة" data-alt-en="coffee"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="قهوة" data-text-en="coffee">قهوة</span>
+                
+                <span class="customer-menu-price">1000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="17" data-name="قهوة" data-price="1000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-9">
+          <h2 class="customer-menu-cat" data-text-ar="مشروبات باردة" data-text-en="Cold drinks">مشروبات باردة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_18.png" alt="بيبسي" loading="lazy" data-alt-ar="بيبسي" data-alt-en="Pepsi"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="بيبسي" data-text-en="Pepsi">بيبسي</span>
+                
+                <span class="customer-menu-price">500 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="18" data-name="بيبسي" data-price="500.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_19.png" alt="عصير برتقال" loading="lazy" data-alt-ar="عصير برتقال" data-alt-en="orange juice"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="عصير برتقال" data-text-en="orange juice">عصير برتقال</span>
+                
+                <span class="customer-menu-price">3000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="19" data-name="عصير برتقال" data-price="3000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_20.png" alt="عصير مانجو" loading="lazy" data-alt-ar="عصير مانجو" data-alt-en="Mango juice"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="عصير مانجو" data-text-en="Mango juice">عصير مانجو</span>
+                
+                <span class="customer-menu-price">3000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="20" data-name="عصير مانجو" data-price="3000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-10">
+          <h2 class="customer-menu-cat" data-text-ar="حلويات" data-text-en="candies">حلويات</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_21.png" alt="كنافة" loading="lazy" data-alt-ar="كنافة" data-alt-en="Kunafa"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="كنافة" data-text-en="Kunafa">كنافة</span>
+                
+                <span class="customer-menu-price">6000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="21" data-name="كنافة" data-price="6000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-11">
+          <h2 class="customer-menu-cat" data-text-ar="مقبلات" data-text-en="appetizers">مقبلات</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_22.png" alt="سلطة سيزر" loading="lazy" data-alt-ar="سلطة سيزر" data-alt-en="Caesar salad"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="سلطة سيزر" data-text-en="Caesar salad">سلطة سيزر</span>
+                <span class="customer-menu-ingredients" data-text-ar="خس - دجاج -خبر محمص" data-text-en="Lettuce - chicken - toasted bread">خس - دجاج -خبر محمص</span>
+                <span class="customer-menu-price">4000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="22" data-name="سلطة سيزر" data-price="4000.0">+</button>
+              </div>
+            </li>
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_23.png" alt="سلطة عادية" loading="lazy" data-alt-ar="سلطة عادية" data-alt-en="Regular salad"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="سلطة عادية" data-text-en="Regular salad">سلطة عادية</span>
+                <span class="customer-menu-ingredients" data-text-ar="طماطة - خس - لهانة - خيار" data-text-en="Tomato - lettuce - lahana - cucumber">طماطة - خس - لهانة - خيار</span>
+                <span class="customer-menu-price">2000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="23" data-name="سلطة عادية" data-price="2000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+        <section class="customer-menu-section" id="cat-12">
+          <h2 class="customer-menu-cat" data-text-ar="نركيلة" data-text-en="Hookah">نركيلة</h2>
+          <ul class="customer-menu-list">
+            <li class="customer-menu-item">
+              <div class="customer-menu-thumb"><img src="./images/product_24.png" alt="نركيلة علك" loading="lazy" data-alt-ar="نركيلة علك" data-alt-en="Hookah gum"></div>
+              <div class="customer-menu-info">
+                <span class="customer-menu-name" data-text-ar="نركيلة علك" data-text-en="Hookah gum">نركيلة علك</span>
+                
+                <span class="customer-menu-price">6000 د.ع</span>
+                <span class="customer-menu-badge customer-menu-badge--yes" data-i18n="available">متاح</span>
+                <button type="button" class="customer-menu-add" data-id="24" data-name="نركيلة علك" data-price="6000.0">+</button>
+              </div>
+            </li></ul>
+        </section>
+  </main>
+  <footer class="customer-menu-footer">
+    <a href="./y-ai-info.html" class="customer-menu-yai-info-link" data-i18n="footer">Y-ai info</a>
+  </footer>
+  
+  <div id="pwaInstallBanner" class="pwa-install-overlay" hidden>
+    <div class="pwa-install-card">
+      <img src="./images/logo.png" alt="" class="customer-menu-logo" width="64" height="64">
+      <p>تنزيل تطبيق <strong>مطعم Popeye</strong></p>
+      <span class="pwa-install-hint">ثبّت التطبيق على هاتفك للطلب بسهولة</span>
+      <p class="pwa-install-ios" id="pwaIosSteps" hidden>على الآيفون: افتح الصفحة في <strong>سفاري</strong> ← اضغط زر المشاركة <strong>⎙</strong> في أسفل الشاشة ← اختر «<strong>إضافة إلى الشاشة الرئيسية</strong>»</p>
+      <div class="pwa-install-actions">
+        <button type="button" class="customer-menu-add" id="pwaInstallYes">تنزيل</button>
+        <button type="button" class="customer-menu-lang-btn" id="pwaInstallNo">لاحقاً</button>
+      </div>
+    </div>
+  </div>
+  <div id="menuAppGate" class="menu-app-gate">
+    <div class="menu-app-gate-box">
+      <img src="./images/logo.png" alt="مطعم Popeye" class="customer-menu-logo" width="56" height="56">
+      <h2 class="menu-app-gate-name">مطعم Popeye</h2>
+      <div class="customer-menu-stars" data-i18n-aria="starsLabel" aria-label="4 من 5"><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star is-filled">★</span><span class="customer-menu-star ">★</span></div>
+      <p>بيانات الطلب — أدخل رقم هاتفك للمتابعة.</p>
+      <label>رقم الهاتف</label>
+      <input type="tel" id="menuAppPhone" dir="ltr" inputmode="tel" placeholder="07xxxxxxxxx">
+      <label>عنوان التوصيل (اختياري)</label>
+      <input type="text" id="menuAppAddress" placeholder="الحي / أقرب نقطة">
+      <div class="menu-app-gate-actions">
+        <button type="button" class="customer-menu-add menu-app-gate-sq" id="menuAppLocate">تحديد الموقع (ضروري)</button>
+        <button type="button" class="customer-menu-add menu-app-gate-sq" id="menuAppEnter" disabled>دخول التطبيق</button>
+      </div>
+      <p id="menuAppLocTxt" class="menu-app-loc">الموقع مطلوب للمتابعة</p>
+    </div>
+  </div>
+  <button type="button" id="menuAppCartFab" class="menu-app-cart-fab" hidden aria-label="السلة">
+    <span class="menu-app-cart-fab-icon">🛒</span>
+    <span id="menuAppCartCount" class="menu-app-cart-fab-count">0</span>
+  </button>
+  <div id="menuAppCart" class="menu-app-cart-sheet" hidden>
+    <div class="menu-app-cart-sheet-inner">
+      <button type="button" class="customer-menu-add" id="menuAppCartBack">رجوع</button>
+      <div id="menuAppCartLines"></div>
+      <p class="menu-app-cart-note">يُضاف إلى المبلغ سعر التوصيل يحدده المطعم</p>
+      <div class="menu-app-cart-bar">
+        <span id="menuAppCartTotal" class="num-en">0</span>
+        <button type="button" class="customer-menu-add" id="menuAppSend">الطلب</button>
+      </div>
+    </div>
+  </div>
+  <div id="menuAppToast" class="menu-app-toast" hidden>تم إرسال الطلب</div>
+  <script>
+(function () {
+  var restaurantNameAr = "\u0645\u0637\u0639\u0645 Popeye";
+  var restaurantNameEn = "\u0645\u0637\u0639\u0645 Popeye";
+  var starRating = 4;
+  var I18N = {
+    ar: {
+      menuSubtitle: 'قائمة المأكولات',
+      available: 'متاح',
+      unavailable: 'غير متاح',
+      empty: 'لا توجد أصناف في القائمة حالياً.',
+      footer: 'Y-ai info',
+      langBtn: 'English',
+      sectionsNav: 'أقسام المنيو',
+      starsLabel: starRating + ' من 5',
+      pageTitleSuffix: ' — قائمة المأكولات'
+    },
+    en: {
+      menuSubtitle: 'Food Menu',
+      available: 'Available',
+      unavailable: 'Unavailable',
+      empty: 'No menu items available right now.',
+      footer: 'Y-ai info',
+      langBtn: 'العربية',
+      sectionsNav: 'Menu sections',
+      starsLabel: starRating + ' out of 5',
+      pageTitleSuffix: ' — Food Menu'
+    }
+  };
+
+  function applyLang(lang) {
+    var root = document.documentElement;
+    root.lang = lang;
+    root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.body.classList.toggle('customer-menu-body--en', lang === 'en');
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (I18N[lang][key]) el.textContent = I18N[lang][key];
+    });
+    document.querySelectorAll('[data-text-ar]').forEach(function (el) {
+      var ar = el.getAttribute('data-text-ar') || '';
+      var en = el.getAttribute('data-text-en') || ar;
+      el.textContent = lang === 'en' ? en : ar;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-aria');
+      if (I18N[lang][key]) el.setAttribute('aria-label', I18N[lang][key]);
+    });
+    document.querySelectorAll('img[data-alt-ar]').forEach(function (img) {
+      var ar = img.getAttribute('data-alt-ar') || '';
+      var en = img.getAttribute('data-alt-en') || ar;
+      img.alt = lang === 'en' ? en : ar;
+    });
+
+    var langBtn = document.getElementById('customerMenuLangBtn');
+    if (langBtn) langBtn.textContent = I18N[lang].langBtn;
+
+    var titleName = lang === 'en' ? restaurantNameEn : restaurantNameAr;
+    document.title = titleName + I18N[lang].pageTitleSuffix;
+    try { localStorage.setItem('customerMenuLang', lang); } catch (e) {}
+  }
+
+  var langBtn = document.getElementById('customerMenuLangBtn');
+  if (langBtn) {
+    langBtn.addEventListener('click', function () {
+      applyLang(document.documentElement.lang === 'ar' ? 'en' : 'ar');
+    });
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('customerMenuLang'); } catch (e) {}
+  applyLang(saved === 'en' ? 'en' : 'ar');
+
+  document.querySelectorAll('.customer-menu-cat-btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      var href = btn.getAttribute('href');
+      if (!href || href.charAt(0) !== '#') return;
+      var target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+  <script>
+(function () {
+  var appCfg = {"enabled": true, "url": "https://sdwvpvymlgxaexkrauhw.supabase.co", "anon": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkd3ZwdnltbGd4YWV4a3JhdWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTc3MTEsImV4cCI6MjEwNTk5MzcxMX0.piNX62vy7oqV3LYaSFXHi4072PMRwseIuYED4OL5ZFU", "restaurant": "مطعم Popeye", "restaurant_id": "alreef"};
+  if (!appCfg || !appCfg.enabled) return;
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(function () {});
+  }
+  var deferredPrompt = null;
+  var banner = document.getElementById('pwaInstallBanner');
+  function isIosDevice() {
+    var ua = navigator.userAgent || '';
+    return /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+  function isStandaloneApp() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  }
+  function isEmbeddedBrowser() {
+    var ua = navigator.userAgent || '';
+    return /FBAN|FBAV|Instagram|Line\/|WhatsApp|Twitter|Snapchat/i.test(ua);
+  }
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (banner && !localStorage.getItem('yaiPwaSkip') && !isStandaloneApp()) banner.hidden = false;
+  });
+  var yes = document.getElementById('pwaInstallYes');
+  var no = document.getElementById('pwaInstallNo');
+  var iosSteps = document.getElementById('pwaIosSteps');
+  if (yes) yes.addEventListener('click', function () {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.finally(function () {
+        deferredPrompt = null;
+        if (banner) banner.hidden = true;
+      });
+      return;
+    }
+    if (isIosDevice()) {
+      if (iosSteps) iosSteps.hidden = false;
+      if (iosSteps) iosSteps.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return;
+    }
+    if (isEmbeddedBrowser()) {
+      if (iosSteps) {
+        iosSteps.hidden = false;
+        iosSteps.textContent = 'افتح الرابط في سفاري أولاً ثم أضفه إلى الشاشة الرئيسية';
+      }
+      return;
+    }
+    alert('من المتصفح: القائمة ← تثبيت التطبيق أو إضافة إلى الشاشة الرئيسية');
+  });
+  if (no) no.addEventListener('click', function () {
+    try { localStorage.setItem('yaiPwaSkip', '1'); } catch (e) {}
+    if (banner) banner.hidden = true;
+  });
+  if (banner && !isStandaloneApp() && !localStorage.getItem('yaiPwaSkip')) {
+    banner.hidden = false;
+    if (isIosDevice()) {
+      if (iosSteps) iosSteps.hidden = false;
+      if (yes) yes.textContent = 'كيف أضيفه؟';
+    }
+    if (isEmbeddedBrowser()) {
+      if (iosSteps) {
+        iosSteps.hidden = false;
+        iosSteps.textContent = 'افتح الرابط في سفاري (وليس واتساب) للتنزيل وتحديد الموقع';
+      }
+      if (yes) yes.textContent = 'افتح في سفاري';
+    }
+  }
+  var gate = document.getElementById('menuAppGate');
+  var phoneEl = document.getElementById('menuAppPhone');
+  var locTxt = document.getElementById('menuAppLocTxt');
+  var enterBtn = document.getElementById('menuAppEnter');
+  var addrEl = document.getElementById('menuAppAddress');
+  var loc = { lat: null, lng: null };
+  function readyGate() {
+    var ok = phoneEl && (phoneEl.value || '').replace(/\D/g, '').length >= 8 && loc.lat != null && loc.lng != null;
+    if (enterBtn) enterBtn.disabled = !ok;
+  }
+  if (phoneEl) phoneEl.addEventListener('input', readyGate);
+  if (addrEl) addrEl.addEventListener('input', readyGate);
+  var locBtn = document.getElementById('menuAppLocate');
+  if (locBtn) locBtn.addEventListener('click', function () {
+    if (isEmbeddedBrowser()) {
+      if (locTxt) locTxt.textContent = 'افتح الرابط في سفاري ثم اضغط تحديد الموقع';
+      return;
+    }
+    if (!navigator.geolocation) { if (locTxt) locTxt.textContent = 'الموقع غير مدعوم'; return; }
+    if (!window.isSecureContext) { if (locTxt) locTxt.textContent = 'الموقع يحتاج رابط https'; return; }
+    if (locTxt) locTxt.textContent = 'جاري تحديد الموقع… انتظر قليلاً';
+    var done = false;
+    var timer = null;
+    function onOk(pos) {
+      if (done || !pos || !pos.coords) return;
+      done = true;
+      if (timer) clearTimeout(timer);
+      loc.lat = pos.coords.latitude;
+      loc.lng = pos.coords.longitude;
+      if (locTxt) locTxt.textContent = 'تم تحديد الموقع ✓';
+      readyGate();
+    }
+    function onDenied() {
+      if (done) return;
+      done = true;
+      if (timer) clearTimeout(timer);
+      if (locTxt) locTxt.textContent = isStandaloneApp()
+        ? 'اسمح للموقع: الإعدادات ← الخصوصية ← خدمات الموقع ← التطبيق'
+        : 'اسمح للموقع: الإعدادات ← الخصوصية ← خدمات الموقع ← سفاري ← الموقع';
+    }
+    function onGiveUp() {
+      if (done) return;
+      done = true;
+      if (locTxt) locTxt.textContent = 'تأخر الموقع — أعد الضغط وأنت خارج المبنى';
+    }
+    timer = setTimeout(onGiveUp, 60000);
+    try {
+      navigator.geolocation.getCurrentPosition(onOk, function (err) {
+        if (err && err.code === 1) { onDenied(); } else { onGiveUp(); }
+      }, { enableHighAccuracy: true, timeout: 55000, maximumAge: 0 });
+    } catch (e) {
+      onGiveUp();
+    }
+  });
+  if (enterBtn) enterBtn.addEventListener('click', function () {
+    if (gate) gate.hidden = true;
+    document.body.classList.add('menu-app-ready');
+  });
+  var cart = {};
+  var cartBox = document.getElementById('menuAppCart');
+  var cartFab = document.getElementById('menuAppCartFab');
+  var cartCount = document.getElementById('menuAppCartCount');
+  var linesEl = document.getElementById('menuAppCartLines');
+  var totalEl = document.getElementById('menuAppCartTotal');
+  var toastEl = document.getElementById('menuAppToast');
+  function cartQty() {
+    return Object.keys(cart).reduce(function (n, id) { return n + cart[id].qty; }, 0);
+  }
+  function renderCart() {
+    var keys = Object.keys(cart);
+    var n = cartQty();
+    if (cartFab) cartFab.hidden = n < 1;
+    if (cartCount) cartCount.textContent = String(n);
+    if (n < 1 && cartBox) cartBox.hidden = true;
+    if (!linesEl) return;
+    var html = '';
+    var total = 0;
+    keys.forEach(function (id) {
+      var it = cart[id];
+      total += it.price * it.qty;
+      html += '<div class="menu-app-line"><span>' + it.name + '</span><span class="menu-app-line-qty">' +
+        '<button type="button" data-rm="' + id + '">−</button><b>' + it.qty + '</b>' +
+        '<button type="button" data-add="' + id + '">+</button></span></div>';
+    });
+    linesEl.innerHTML = html;
+    if (totalEl) totalEl.textContent = String(Math.round(total));
+    linesEl.querySelectorAll('[data-rm]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-rm');
+        if (!cart[id]) return;
+        cart[id].qty -= 1;
+        if (cart[id].qty <= 0) delete cart[id];
+        renderCart();
+      });
+    });
+    linesEl.querySelectorAll('[data-add]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-add');
+        if (!cart[id]) return;
+        cart[id].qty += 1;
+        renderCart();
+      });
+    });
+  }
+  if (cartFab) cartFab.addEventListener('click', function () {
+    if (cartBox) cartBox.hidden = false;
+  });
+  var cartBack = document.getElementById('menuAppCartBack');
+  if (cartBack) cartBack.addEventListener('click', function () {
+    if (cartBox) cartBox.hidden = true;
+  });
+  document.querySelectorAll('.customer-menu-add[data-id]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-id');
+      if (!cart[id]) cart[id] = { product_id: parseInt(id, 10), name: btn.getAttribute('data-name'), price: parseFloat(btn.getAttribute('data-price') || '0'), qty: 0 };
+      cart[id].qty += 1;
+      renderCart();
+    });
+  });
+  var sendBtn = document.getElementById('menuAppSend');
+  if (sendBtn) sendBtn.addEventListener('click', function () {
+    var items = Object.keys(cart).map(function (k) { return cart[k]; });
+    if (!items.length) return;
+    var total = items.reduce(function (s, it) { return s + it.price * it.qty; }, 0);
+    sendBtn.disabled = true;
+    var base = String(appCfg.url || '').replace(/\/+$/, '').replace(/\/rest\/v1$/i, '');
+    fetch(base + '/rest/v1/app_orders', {
+      method: 'POST',
+      headers: {
+        apikey: appCfg.anon,
+        Authorization: 'Bearer ' + appCfg.anon,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify({
+        restaurant_id: appCfg.restaurant_id,
+        customer_phone: (phoneEl && phoneEl.value) || '',
+        delivery_address: (addrEl && addrEl.value.trim()) || '',
+        lat: loc.lat,
+        lng: loc.lng,
+        items: items,
+        total: total,
+        status: 'pending'
+      })
+    }).then(function (r) {
+      if (!r.ok) {
+        return r.text().then(function (t) {
+          throw new Error((r.status || '') + ' ' + (t || r.statusText || 'send'));
+        });
+      }
+      cart = {};
+      renderCart();
+      if (cartBox) cartBox.hidden = true;
+      if (toastEl) {
+        toastEl.hidden = false;
+        setTimeout(function () { toastEl.hidden = true; }, 2000);
+      }
+    }).catch(function (e) {
+      alert('تعذر إرسال الطلب' + (e && e.message ? ': ' + e.message : ''));
+    }).finally(function () { sendBtn.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
